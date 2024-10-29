@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        .projectDiv {
+            margin-top: 100px;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(226, 170, 2);
+        }
+
+        .addClass {
+            border-radius: 50%;
+            transition: 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="projectDiv"></div><br>
+        <button id="mybtn">Hello</button>
+    </center>
+
+    <script>
+        let myBtn = document.getElementById("mybtn");
+        var prr = document.querySelector(".projectDiv");
+
+        const hendleClick = () => {
+            prr.classList.add("addClass");
+            prr.style.backgroundColor = "yellow";
+        }
+
+        myBtn.addEventListener("click", hendleClick);
+    </script>
+</body>
+
+</html>
