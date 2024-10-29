@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project - 1</title>
+</head>
+
+<body>
+
+    <h1>TODO LIST (ADD and DELETE)</h1>
+    <input type="text" placeholder="Enter Your TODO .... " id="inputField">
+    <button onclick="addtodo()">Add</button>
+    <div class="todoList">
+        <!-- <p id="todoFirst"></p> -->
+    </div>
+
+    <script>
+        var inputVal = document.getElementById("inputField");
+        var todoList = document.getElementsByClassName("todoList")[0];
+
+        const addtodo = () => {
+            // todoFirst.innerText = inputVal.value;
+            let pElem = document.createElement("p");
+            pElem.textContent = inputVal.value;
+            todoList.append(pElem);
+            inputVal.value = "";
+        }
+    </script>
+</body>
+
+</html>
