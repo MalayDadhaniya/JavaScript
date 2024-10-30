@@ -88,6 +88,10 @@
             background-color: #ccc;
             border-radius: 10px;
         }
+
+        #deleteBtn {
+            background-color: rgba(159, 6, 6, 0.782);
+        }
     </style>
 </head>
 
@@ -96,6 +100,7 @@
         <div class="mainForm">
             <input type="text" placeholder="Enter Your TODO ...." id="inputField">
             <button onclick="addTodo()">ADD TODO</button>
+            <button id="deleteBtn">DELETE</button>
         </div>
         <div class="history">
         </div>
@@ -104,12 +109,20 @@
     <script>
         var inputField = document.getElementById("inputField");
         var historyyy = document.getElementsByClassName("history")[0];
+        var delbtn = document.getElementById("deleteBtn");
+
         const addTodo = () => {
             let pElem = document.createElement("p");
             pElem.textContent = inputField.value;
             historyyy.appendChild(pElem);
             inputField.value = "";
         }
+
+        const hendelRemovedata = () => {
+            historyyy.removeChild(historyyy.lastChild);
+        }
+
+        delbtn.addEventListener("click", hendelRemovedata);
     </script>
 </body>
 
