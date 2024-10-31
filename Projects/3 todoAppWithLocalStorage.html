@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store your todo in local Storage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            /* height: 480px; */
+        }
+
+        form div {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        input[type="text"]:focus {
+            border-color: #e7b75f;
+            outline: none;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: #e7b75f;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #d3a653;
+        }
+
+        .todoItems {
+            margin-top: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .todoItems div {
+            background-color: #f7f7f7;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+        }
+
+        .todoItems div:nth-child(even) {
+            background-color: #ececec;
+        }
+
+        .todoItems div span {
+            color: #555;
+        }
+
+        .todoItems div button {
+            background-color: #ff4d4d;
+            color: #fff;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .todoItems div button:hover {
+            background-color: #e63939;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h4>Add TODO with Local Storage</h4><br>
+        <div>
+            <input type="text" placeholder="Enter TODO here ...." id="inputField">
+            <button class="btn">ADD</button>
+        </div>
+        <Section class="todoItems"></Section>
+    </form>
+
+    <script>
+        let userInput = document.getElementById("inputField");
+        let todoList = document.querySelector(".todoItems");
+        let formBtn = document.querySelector(".btn");
+
+        let todoArr = [];
+
+        const addTodo = (e) => {
+            e.preventDefault();
+            let userTrimData = userInput.value.trim();
+
+            todoArr.push(userTrimData);
+            todoArr = [... new Set(todoArr)];
+            console.log(todoArr);
+            localStorage.setItem("MyTodoList", JSON.stringify(todoArr));
+
+            let divElem = document.createElement("div");
+            divElem.classList.add("sectionDiv");
+            divElem.innerHTML = `<li>${userInput.value}</li> <button class="delBtn">Delete</button>`;
+            todoList.append(divElem);
+            userInput.value = "";
+        }
+
+        formBtn.addEventListener("click", (e) => {
+            addTodo(e);
+        })
+    </script>
+</body>
+
+</html>
