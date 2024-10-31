@@ -127,7 +127,19 @@
         let todoList = document.querySelector(".todoItems");
         let formBtn = document.querySelector(".btn");
 
-        let todoArr = [];
+        const getTodoItems = () => {
+            return JSON.parse(localStorage.getItem("MyTodoList"));
+        }
+
+        todoArr = getTodoItems() || [];
+
+        const addTodoInSection = (element) => {
+            let divElem = document.createElement("div");
+            divElem.classList.add("sectionDiv");
+            divElem.innerHTML = `<li>${element}</li> <button class="delBtn">Delete</button>`;
+            todoList.append(divElem);
+            userInput.value = "";
+        }
 
         const addTodo = (e) => {
             e.preventDefault();
@@ -135,18 +147,37 @@
 
             todoArr.push(userTrimData);
             todoArr = [... new Set(todoArr)];
-            console.log(todoArr);
             localStorage.setItem("MyTodoList", JSON.stringify(todoArr));
 
-            let divElem = document.createElement("div");
-            divElem.classList.add("sectionDiv");
-            divElem.innerHTML = `<li>${userInput.value}</li> <button class="delBtn">Delete</button>`;
-            todoList.append(divElem);
-            userInput.value = "";
+            addTodoInSection(userTrimData);
+        }
+
+        const delTodo = () => {
+            console.log(todoArr);
+        }
+
+        const showTodoList = () => {
+            todoArr.forEach(element => {
+                addTodoInSection(element);
+            });
+        }
+
+        showTodoList();
+
+        const removeItem = (e) => {
+            e.preventDefault();
+            const todoToRemove = e.target;
+            let todoListContent = todoToRemove.previousElementSibling.innerText;
+
+
         }
 
         formBtn.addEventListener("click", (e) => {
             addTodo(e);
+        })
+
+        todoList.addEventListener("click", (e) => {
+            removeItem(e);
         })
     </script>
 </body>
