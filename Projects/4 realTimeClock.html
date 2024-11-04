@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Time Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            color: #e7b75f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mainContainer {
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .currTime h1 {
+            font-size: 2rem;
+            color: #e7b75f;
+        }
+
+        #realTime {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="currTime">
+            <h1>Time : <span id="realTime"></span></h1>
+        </div>
+    </div>
+
+    <script>
+        let realTime = document.getElementById("realTime");
+
+        const currTime = () => {
+            let time = new Date().toLocaleTimeString();
+            realTime.innerText = time;
+        }
+
+        setInterval(currTime, 1000);
+    </script>
+</body>
+
+</html>
