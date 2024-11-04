@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1A1A1A;
+            color: #E7B75F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mainContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .stopWatchArea {
+            text-align: center;
+            width: 100%;
+        }
+
+        .time {
+            font-size: 48px;
+            font-weight: bold;
+            color: #E7B75F;
+            margin-bottom: 20px;
+        }
+
+        .btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1A1A1A;
+            background-color: #E7B75F;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b48e45;
+        }
+
+        .currTime {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #E7B75F;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="stopWatchArea">
+            <div class="time">0</div>
+            <div class="btns">
+                <button id="start">Start</button>
+                <button id="reset">Reset</button>
+                <button id="stop">Stop</button>
+                <button id="getTime">Get Time</button>
+                <button id="clear">Clear</button>
+            </div><br>
+            <div id="currTime"></div>
+        </div>
+    </div>
+
+
+    <script>
+        let time = document.querySelector(".time");
+        let currTimeSection = document.getElementById("currTime");
+        let timeCount = 0;
+        let startTime;
+
+        const timeStart = () => {
+            timeCount++;
+            time.innerHTML = timeCount;
+        }
+
+
+        document.querySelector("#start").addEventListener("click", () => {
+            startTime = setInterval(timeStart, 1000);
+        });
+
+        document.querySelector("#reset").addEventListener("click", () => {
+            clearInterval(startTime);
+            timeCount = 0;
+            time.innerHTML = timeCount;
+        });
+
+        document.querySelector("#stop").addEventListener("click", () => {
+            clearInterval(startTime);
+        });
+
+        document.querySelector("#getTime").addEventListener("click", () => {
+            let pElem = document.createElement("p");
+            pElem.innerHTML = `Seconds: <span>${timeCount}</span>`;
+            currTimeSection.append(pElem);
+        });
+
+        document.querySelector("#clear").addEventListener("click", () => {
+            currTimeSection.innerHTML = '';
+        });
+
+    </script>
+</body>
+
+</html>
