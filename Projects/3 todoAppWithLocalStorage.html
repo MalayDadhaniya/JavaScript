@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store your todo in local Storage</title>
+    <title>Store your todo in Local Storage</title>
     <style>
         * {
             margin: 0;
@@ -33,7 +33,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 500px;
-            /* height: 480px; */
         }
 
         form div {
@@ -119,7 +118,7 @@
             <input type="text" placeholder="Enter TODO here ...." id="inputField">
             <button class="btn">ADD</button>
         </div>
-        <Section class="todoItems"></Section>
+        <section class="todoItems"></section>
     </form>
 
     <script>
@@ -128,10 +127,10 @@
         let formBtn = document.querySelector(".btn");
 
         const getTodoItems = () => {
-            return JSON.parse(localStorage.getItem("MyTodoList"));
+            return JSON.parse(localStorage.getItem("MyTodoList")) || [];
         }
 
-        todoArr = getTodoItems() || [];
+        let todoArr = getTodoItems();
 
         const addTodoInSection = (element) => {
             let divElem = document.createElement("div");
@@ -144,41 +143,34 @@
         const addTodo = (e) => {
             e.preventDefault();
             let userTrimData = userInput.value.trim();
-
-            todoArr.push(userTrimData);
-            todoArr = [... new Set(todoArr)];
-            localStorage.setItem("MyTodoList", JSON.stringify(todoArr));
-
-            addTodoInSection(userTrimData);
-        }
-
-        const delTodo = () => {
-            console.log(todoArr);
+            if (userTrimData) {
+                todoArr.push(userTrimData);
+                todoArr = [...new Set(todoArr)];
+                localStorage.setItem("MyTodoList", JSON.stringify(todoArr));
+                addTodoInSection(userTrimData);
+            }
         }
 
         const showTodoList = () => {
+            todoList.innerHTML = '';
             todoArr.forEach(element => {
                 addTodoInSection(element);
             });
         }
 
-        showTodoList();
-
         const removeItem = (e) => {
-            e.preventDefault();
-            const todoToRemove = e.target;
-            let todoListContent = todoToRemove.previousElementSibling.innerText;
-
-
+            if (e.target.classList.contains("delBtn")) {
+                const itemToDelete = e.target.previousElementSibling.innerText;
+                todoArr = todoArr.filter(item => item !== itemToDelete);
+                localStorage.setItem("MyTodoList", JSON.stringify(todoArr));
+                showTodoList();
+            }
         }
 
-        formBtn.addEventListener("click", (e) => {
-            addTodo(e);
-        })
+        showTodoList();
 
-        todoList.addEventListener("click", (e) => {
-            removeItem(e);
-        })
+        formBtn.addEventListener("click", addTodo);
+        todoList.addEventListener("click", removeItem);
     </script>
 </body>
 
